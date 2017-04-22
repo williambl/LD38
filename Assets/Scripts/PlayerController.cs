@@ -34,11 +34,15 @@ public class PlayerController : MonoBehaviour {
 		 * Let's see if this works:
 		 */
 
+		RaycastHit hit;
+		Physics.Raycast (transform.position, -transform.up, out hit, 10f);
 		Vector3 up = transform.position - gravity.closestRigid.transform.position;
 		up = Vector3.Normalize (up);
 		Debug.DrawRay (transform.position, up, Color.cyan);
+		Debug.DrawRay (transform.position, hit.normal, Color.green);
 		Debug.DrawRay (transform.position, transform.up, Color.red);
-		transform.rotation *= Quaternion.FromToRotation (transform.up, up);
+		//transform.rotation *= Quaternion.FromToRotation (transform.up, hit.normal);
+		transform.up = hit.normal;
 	}
 		
 }
