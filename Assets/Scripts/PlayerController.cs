@@ -19,8 +19,8 @@ public class PlayerController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void FixedUpdate () {
-		float x = Input.GetAxis ("Vertical") * rotateForce;
-		float y = Input.GetAxis ("Horizontal") * moveForce;
+		float x = Input.GetAxis ("Vertical") * moveForce;
+		float y = Input.GetAxis ("Horizontal") * rotateForce;
 
 		rigid.AddRelativeForce (new Vector3 (x, 0, 0));
 		transform.localRotation *= Quaternion.Euler (new Vector3 (0, y, 0));
