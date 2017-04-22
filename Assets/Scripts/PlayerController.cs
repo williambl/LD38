@@ -26,7 +26,7 @@ public class PlayerController : MonoBehaviour {
 		float y = Input.GetAxis ("Horizontal") * rotateForce;
 
 		if (isGrounded) {
-			rigid.AddRelativeForce (new Vector3 (x, 0, 0));
+			rigid.AddRelativeForce (new Vector3 (0, 0, x));
 			transform.localRotation *= Quaternion.Euler (new Vector3 (0, y, 0));
 
 			if (Input.GetButtonDown ("Jump")) {
