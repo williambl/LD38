@@ -6,10 +6,13 @@ public class PlayerController : MonoBehaviour {
 
 	public float rotateForce = 1;
 	public float moveForce = 1;
+	public float jumpForce = 1;
 
 	private Rigidbody rigid;
 
 	private Gravity gravity;
+
+	public bool isGrounded = false;
 
 	// Use this for initialization
 	void Start () {
@@ -22,8 +25,14 @@ public class PlayerController : MonoBehaviour {
 		float x = Input.GetAxis ("Vertical") * moveForce;
 		float y = Input.GetAxis ("Horizontal") * rotateForce;
 
-		rigid.AddRelativeForce (new Vector3 (x, 0, 0));
-		transform.localRotation *= Quaternion.Euler (new Vector3 (0, y, 0));
+		if (isGrounded) {
+			rigid.AddRelativeForce (new Vector3 (x, 0, 0));
+			transform.localRotation *= Quaternion.Euler (new Vector3 (0, y, 0));
+
+			if (Input.GetButtonDown ("Jump")) {
+				rigid.AddRelativeForce (new Vector3 (0, jumpForce, 0));
+			}
+		}
 
 		FixRotation ();
 	}
@@ -34,15 +43,23 @@ public class PlayerController : MonoBehaviour {
 		 * Let's see if this works:
 		 */
 
+		Vector3 planetDir = -(transform.position - gravity.closestRigid.transform.position);
 		RaycastHit hit;
-		Physics.Raycast (transform.position, -transform.up, out hit, 10f);
-		Vector3 up = transform.position - gravity.closestRigid.transform.position;
-		up = Vector3.Normalize (up);
-		Debug.DrawRay (transform.position, up, Color.cyan);
-		Debug.DrawRay (transform.position, hit.normal, Color.green);
-		Debug.DrawRay (transform.position, transform.up, Color.red);
+		Physics.Raycast (transform.position, planetDir, out hit, 50f);
+		Debug.DrawRay (transform.position, planetDir, Color.cyan, 5f);
+		Debug.DrawRay (hit.point, hit.normal, Color.green, 5f);
+		Debug.DrawRay (transform.position, transform.up, Color.red, 5f);
 		//transform.rotation *= Quaternion.FromToRotation (transform.up, hit.normal);
 		transform.up = hit.normal;
 	}
-		
+
+	void OnCollisionEnter (Collision collision) 
+	{
+		isGrounded = true;
+	}
+
+	void OnCollisionExit (Collision collision) 
+	{
+		isGrounded = false;
+	}
 }
