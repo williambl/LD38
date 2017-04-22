@@ -40,7 +40,6 @@ public class PlayerController : MonoBehaviour {
 	void FixRotation () {
 		/*
 		 * Here we want to align our up with the planet below us
-		 * Let's see if this works:
 		 */
 
 		Vector3 planetDir = -(transform.position - gravity.closestRigid.transform.position);
@@ -50,7 +49,6 @@ public class PlayerController : MonoBehaviour {
 		Debug.DrawRay (hit.point, hit.normal, Color.green, 5f);
 		Debug.DrawRay (transform.position, transform.up, Color.red, 5f);
 		transform.rotation = Quaternion.FromToRotation (transform.up, hit.normal) * transform.rotation;
-		//transform.up = hit.normal;
 	}
 
 	void OnCollisionEnter (Collision collision) 
