@@ -22,8 +22,10 @@ public class PlayerController : MonoBehaviour {
 		float x = Input.GetAxis ("Vertical") * rotateForce;
 		float y = Input.GetAxis ("Horizontal") * moveForce;
 
-		rigid.AddRelativeForce (new Vector3 (x, 0, 0), ForceMode.VelocityChange);
+		rigid.AddRelativeForce (new Vector3 (x, 0, 0));
 		transform.localRotation *= Quaternion.Euler (new Vector3 (0, y, 0));
+
+		FixRotation ();
 	}
 
 	void FixRotation () {
@@ -32,7 +34,10 @@ public class PlayerController : MonoBehaviour {
 		 * Let's see if this works:
 		 */
 
-		Vector3 up = (gravity.closestRigid.transform.position - transform.position).normalized;
+		Vector3 up = transform.position - gravity.closestRigid.transform.position;
+		up = Vector3.Normalize (up);
+		Debug.DrawRay (transform.position, up, Color.cyan);
+		Debug.DrawRay (transform.position, transform.up, Color.red);
 		transform.rotation *= Quaternion.FromToRotation (transform.up, up);
 	}
 		
