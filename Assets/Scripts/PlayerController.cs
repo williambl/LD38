@@ -45,7 +45,7 @@ public class PlayerController : MonoBehaviour {
 
 		Vector3 planetDir = -(transform.position - gravity.closestRigid.transform.position);
 		RaycastHit hit;
-		Physics.Raycast (transform.position, planetDir, out hit, 50f);
+		Physics.Raycast (transform.position, planetDir, out hit, 15f);
 		Debug.DrawRay (transform.position, planetDir, Color.cyan, 5f);
 		Debug.DrawRay (hit.point, hit.normal, Color.green, 5f);
 		Debug.DrawRay (transform.position, transform.up, Color.red, 5f);
