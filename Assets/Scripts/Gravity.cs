@@ -29,7 +29,7 @@ public class Gravity : MonoBehaviour {
 
 			double force = g * ((rigidBody.mass * rigid.mass) / Mathf.Pow(dist, 2f));
 
-			rigidBody.AddForce ((rigid.transform.position - transform.position) * (float)force);
+			rigidBody.AddForce ((rigid.transform.position - transform.position) * (float)force, ForceMode.Acceleration);
 
 		}
 

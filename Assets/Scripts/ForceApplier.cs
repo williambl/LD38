@@ -8,6 +8,6 @@ public class ForceApplier : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		GetComponent<Rigidbody> ().AddForce (force);
+		GetComponent<Rigidbody> ().AddForce (force, ForceMode.Acceleration);
 	}
 }

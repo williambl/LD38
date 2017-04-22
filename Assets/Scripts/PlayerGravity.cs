@@ -18,6 +18,6 @@ public class PlayerGravity : Gravity {
 
 		double force = g * ((rigidBody.mass * closestRigid.mass) / Mathf.Pow(closestDist, 2f));
 
-		rigidBody.AddForce ((closestRigid.transform.position - transform.position) * (float)force);
+		rigidBody.AddForce ((closestRigid.transform.position - transform.position) * (float)force, ForceMode.Acceleration);
 	}
 }
