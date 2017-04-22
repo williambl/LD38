@@ -49,8 +49,8 @@ public class PlayerController : MonoBehaviour {
 		Debug.DrawRay (transform.position, planetDir, Color.cyan, 5f);
 		Debug.DrawRay (hit.point, hit.normal, Color.green, 5f);
 		Debug.DrawRay (transform.position, transform.up, Color.red, 5f);
-		//transform.rotation *= Quaternion.FromToRotation (transform.up, hit.normal);
-		transform.up = hit.normal;
+		transform.rotation = Quaternion.FromToRotation (transform.up, hit.normal) * transform.rotation;
+		//transform.up = hit.normal;
 	}
 
 	void OnCollisionEnter (Collision collision) 
