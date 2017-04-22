@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,14 +11,14 @@ public class PlayerController : MonoBehaviour {
 
 	private Rigidbody rigid;
 
-	private Gravity gravity;
+	private PlayerGravity gravity;
 
 	public bool isGrounded = false;
 
 	// Use this for initialization
 	void Start () {
 		rigid = GetComponent<Rigidbody> ();
-		gravity = GetComponent<Gravity> ();
+		gravity = GetComponent<PlayerGravity> ();
 	}
 	
 	// Update is called once per frame
@@ -39,9 +40,20 @@ public class PlayerController : MonoBehaviour {
 
 	void FixRotation () {
 		/*
-		 * Here we want to align our up with the planet below us
+		 * Here we want to align our up with the planet below us,
+		 * unless we are in an artificial gravity field. Then we
+		 * align with the surface below us.
 		 */
 
+		if (gravity.artificialGravityObject != null) {
+			RaycastHit hit1;
+			Physics.Raycast (transform.position, -transform.up, out hit1, 15f);
+			transform.rotation = Quaternion.FromToRotation (transform.up, hit1.normal) * transform.rotation;
+			return;
+		}
+		if (gravity.closestRigid == null) {
+			return;
+		}
 		Vector3 planetDir = -(transform.position - gravity.closestRigid.transform.position);
 		RaycastHit hit;
 		Physics.Raycast (transform.position, planetDir, out hit, 15f);

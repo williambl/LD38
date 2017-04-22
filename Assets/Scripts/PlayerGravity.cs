@@ -4,7 +4,16 @@ using UnityEngine;
 
 public class PlayerGravity : Gravity {
 
+	public Rigidbody artificialGravityObject;
+
 	public void FixedUpdate () {
+
+		if (artificialGravityObject != null) {
+			rigidBody.AddForce (Vector3.down * g * ((rigidBody.mass * artificialGravityObject.mass) 
+				/ Mathf.Pow(Vector3.Distance (transform.position, artificialGravityObject.transform.position), 2f)));
+	
+			return;
+		}
 
 		float closestDist = 999;
 		foreach (Rigidbody rigid in rigids) {
