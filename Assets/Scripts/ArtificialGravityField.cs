@@ -17,7 +17,8 @@ public class ArtificialGravityField : MonoBehaviour {
 		if (other.gameObject.tag != "Player") {
 			return;
 		}
-
+		other.GetComponent<Rigidbody> ().velocity = Vector3.zero;
+		other.GetComponent<Rigidbody> ().angularVelocity = Vector3.zero;
 		other.GetComponent<PlayerGravity> ().artificialGravityObject = rigid;
 	}
 
