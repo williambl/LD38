@@ -19,11 +19,16 @@ public class PlayerController : MonoBehaviour {
 
 	public UIControl ui;
 
+	public AudioSource source;
+
+	public AudioClip[] clips;
+
 	// Use this for initialization
 	void Start () {
 		rigid = GetComponent<Rigidbody> ();
 		gravity = GetComponent<PlayerGravity> ();
 		ui = GetComponent<UIControl> ();
+		source = GetComponent<AudioSource> ();
 		gamestate = GameState.PLAYING;
 	}
 	
@@ -38,6 +43,7 @@ public class PlayerController : MonoBehaviour {
 
 			if (Input.GetButtonDown ("Jump")) {
 				rigid.AddRelativeForce (new Vector3 (0, jumpForce, 0));
+				PlaySound (Sound.JUMP);
 			}
 		}
 
@@ -70,6 +76,9 @@ public class PlayerController : MonoBehaviour {
 	void OnCollisionEnter (Collision collision) 
 	{
 		isGrounded = true;
+		rigid.velocity = Vector3.zero;
+		rigid.angularVelocity = Vector3.zero;
+		PlaySound (Sound.LAND);
 	}
 
 	void OnCollisionExit (Collision collision) 
@@ -81,11 +90,31 @@ public class PlayerController : MonoBehaviour {
 	{
 		gamestate = GameState.LOST;
 		ui.Lose ();
+		PlaySound (Sound.LAND);
 	}
 
 	public void Win ()
 	{
 		gamestate = GameState.WON;
 		ui.Win ();
+		PlaySound (Sound.PICKUP);
+	}
+
+	public void PlaySound (Sound sound)
+	{
+		switch (sound) {
+		case Sound.JUMP:
+			source.clip = clips [0];
+			source.Play ();
+			break;
+		case Sound.LAND:
+			source.clip = clips [1];
+			source.Play ();
+			break;
+		case Sound.PICKUP:
+			source.clip = clips [2];
+			source.Play ();
+			break;
+		}
 	}
 }

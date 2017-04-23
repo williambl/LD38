@@ -13,7 +13,7 @@ public class Coin : MonoBehaviour {
 
 	void OnTriggerEnter ()
 	{
-		playerScore.score++;
+		playerScore.AddScore (1);
 		Destroy (this.gameObject);
 	}
 }
