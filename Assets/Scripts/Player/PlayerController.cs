@@ -17,10 +17,13 @@ public class PlayerController : MonoBehaviour {
 
 	public GameState gamestate;
 
+	public UIControl ui;
+
 	// Use this for initialization
 	void Start () {
 		rigid = GetComponent<Rigidbody> ();
 		gravity = GetComponent<PlayerGravity> ();
+		ui = GetComponent<UIControl> ();
 		gamestate = GameState.PLAYING;
 	}
 	
@@ -77,11 +80,12 @@ public class PlayerController : MonoBehaviour {
 	public void Die ()
 	{
 		gamestate = GameState.LOST;
-		GetComponent<Renderer> ().enabled = false;
+		ui.Lose ();
 	}
 
 	public void Win ()
 	{
 		gamestate = GameState.WON;
+		ui.Win ();
 	}
 }
