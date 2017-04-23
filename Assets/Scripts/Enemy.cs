@@ -54,11 +54,7 @@ public class Enemy : MonoBehaviour {
 		}
 		PlayerScore score = collision.gameObject.GetComponent<PlayerScore> ();
 
-		if (score.health > 0) {
-			score.health--;
-		} else {
-			gameObject.GetComponent<PlayerController> ().Die();
-		}
+		score.health--;
 		transform.localPosition += new Vector3 (0, -1, 0);
 	}
 

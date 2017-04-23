@@ -20,4 +20,11 @@ public class PlayerScore : MonoBehaviour {
 		score += amount;
 		controller.PlaySound (Sound.PICKUP);
 	}
+
+	void Update ()
+	{
+		if (score < 1) {
+			controller.Die ();
+		}
+	}
 }
