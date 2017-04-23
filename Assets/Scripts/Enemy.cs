@@ -54,10 +54,10 @@ public class Enemy : MonoBehaviour {
 		}
 		PlayerScore score = collision.gameObject.GetComponent<PlayerScore> ();
 
-		if (score.score > 0) {
-			score.score--;
+		if (score.health > 0) {
+			score.health--;
 		} else {
-			Destroy (collision.gameObject);
+			gameObject.GetComponent<PlayerController> ().Die();
 		}
 		Destroy (gameObject);
 	}

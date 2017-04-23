@@ -15,10 +15,13 @@ public class PlayerController : MonoBehaviour {
 
 	public bool isGrounded = false;
 
+	public GameState gamestate;
+
 	// Use this for initialization
 	void Start () {
 		rigid = GetComponent<Rigidbody> ();
 		gravity = GetComponent<PlayerGravity> ();
+		gamestate = GameState.PLAYING;
 	}
 	
 	// Update is called once per frame
@@ -69,5 +72,16 @@ public class PlayerController : MonoBehaviour {
 	void OnCollisionExit (Collision collision) 
 	{
 		isGrounded = false;
+	}
+
+	public void Die ()
+	{
+		gamestate = GameState.LOST;
+		GetComponent<Renderer> ().enabled = false;
+	}
+
+	public void Win ()
+	{
+		gamestate = GameState.WON;
 	}
 }
