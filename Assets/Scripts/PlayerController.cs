@@ -46,9 +46,7 @@ public class PlayerController : MonoBehaviour {
 		 */
 
 		if (gravity.artificialGravityObject != null) {
-			RaycastHit hit1;
-			Physics.Raycast (transform.position, -transform.up, out hit1, 15f);
-			transform.rotation = Quaternion.FromToRotation (transform.up, hit1.normal) * transform.rotation;
+			transform.rotation = Quaternion.FromToRotation (transform.up, Vector3.up) * transform.rotation;
 			return;
 		}
 		if (gravity.closestRigid == null) {
