@@ -59,7 +59,7 @@ public class Enemy : MonoBehaviour {
 		} else {
 			gameObject.GetComponent<PlayerController> ().Die();
 		}
-		Destroy (gameObject);
+		transform.localPosition += new Vector3 (0, -1, 0);
 	}
 
 	void OnTriggerEnter (Collider collider) {
