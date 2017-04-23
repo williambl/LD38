@@ -12,7 +12,7 @@ public class Cannon : MonoBehaviour {
 			return;
 		}
 
-		other.transform.position = transform.position;
+		other.transform.position = transform.position + transform.up.normalized * 2;
 
 		Rigidbody rigid = other.GetComponent<Rigidbody> ();
 		rigid.velocity = Vector3.zero;
