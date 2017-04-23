@@ -61,4 +61,12 @@ public class Enemy : MonoBehaviour {
 		}
 		Destroy (gameObject);
 	}
+
+	void OnTriggerEnter (Collider collider) {
+		if (collider.gameObject.tag != "Player") {
+			return;
+		}
+		collider.gameObject.GetComponent<PlayerScore> ().score += 5;
+		Destroy (gameObject);
+	}
 }
