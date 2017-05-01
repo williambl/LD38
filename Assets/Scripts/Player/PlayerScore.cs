@@ -23,7 +23,7 @@ public class PlayerScore : MonoBehaviour {
 
 	void Update ()
 	{
-		if (score < 1) {
+		if (health < 1) {
 			controller.Die ();
 		}
 	}
